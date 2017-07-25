@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'components/add_sub.dart';
+
 
 void main() {
   runApp(new MyApp());
@@ -26,7 +28,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-int _page =0;
+  int _page =0;
   PageController _pageController;
 
   @override
@@ -36,8 +38,8 @@ int _page =0;
         title: new Text(widget.title),
       ),
       body: new PageView(children: [
-        new Container(color: Colors.red),
-        new Container(color: Colors.blue),
+        new AddSubView( operation: "Addition"),
+        new AddSubView( operation: "Subtraction"),
         new Container(color: Colors.grey)
       ], controller: _pageController, onPageChanged: onPageChanged),
       bottomNavigationBar: new BottomNavigationBar(
