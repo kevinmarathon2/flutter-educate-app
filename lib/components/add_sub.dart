@@ -55,12 +55,13 @@ class _AddSubViewState extends State<AddSubView> {
     var list = [];
 
     for(final item in answers){
- print(item);
+      list.add(new RaisedButton( child: new Text(item.toString()),));
+ print(list);
     }
-    
+    return list;
 
 
-   return [ new RaisedButton( child: new Text("data"),),new RaisedButton( child: new Text("data"),)];
+  // return [ new RaisedButton( child: new Text("data"),),new RaisedButton( child: new Text("data"),)];
   }
 
   createOperation() {
