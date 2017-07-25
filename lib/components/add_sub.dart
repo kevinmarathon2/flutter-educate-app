@@ -16,9 +16,10 @@ class _AddSubViewState extends State<AddSubView> {
 
   final String operation;
 
-  num numberA, numberB, answer;
+  num numberA, numberB, answer, totalQuestions = 30;
   String question = "";
-  List<num> answers = <num>[ 1,2,3];
+  double correctSoFar = 0.00;
+  List<num> answers = <num>[1, 2, 3];
 
   void initState() {
     super.initState();
@@ -48,20 +49,22 @@ class _AddSubViewState extends State<AddSubView> {
     answers.add(rnm.nextInt(10));
 
     answers[rnm.nextInt(3)] = answer;
+    setState(() => {});
   }
 
-   List<RaisedButton> createAnswerButtons() {
-
+  List<RaisedButton> createAnswerButtons() {
     var list = [];
-
-    for(final item in answers){
-      list.add(new RaisedButton( child: new Text(item.toString()),));
- print(list);
+ 
+    for (final item in answers) {
+      list.add(new RaisedButton(
+        child: new Text(item.toString()),
+        onPressed: (){checkAnswer(item);},
+      ));
+      print(list);
     }
     return list;
 
-
-  // return [ new RaisedButton( child: new Text("data"),),new RaisedButton( child: new Text("data"),)];
+    // return [ new RaisedButton( child: new Text("data"),),new RaisedButton( child: new Text("data"),)];
   }
 
   createOperation() {
@@ -72,7 +75,14 @@ class _AddSubViewState extends State<AddSubView> {
     }
   }
 
-  checkAnswer() {}
+  checkAnswer(givenAnswer) {
+    print( "The answer is ${givenAnswer} and the real answer is ${answer}");
+    if(givenAnswer == answer){
+      print("correct");
+      correctSoFar += 0.03;
+      setUpQuestion();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -85,13 +95,11 @@ class _AddSubViewState extends State<AddSubView> {
               style:
                   new TextStyle(fontWeight: FontWeight.bold, fontSize: 40.00),
             ),
-            new Container(
-                padding: const EdgeInsets.all(32.0),
-                child: new Row(children: createAnswerButtons() )
-                ),
+            new Container(child: new Row(children: createAnswerButtons())),
             new Container(
               child: new Text("progress bar"),
-            )
+            ),
+            new LinearProgressIndicator(value: correctSoFar,)
           ],
         ));
   }
