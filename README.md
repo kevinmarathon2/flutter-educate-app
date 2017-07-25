@@ -1,8 +1,1 @@
-# edutimer
-
-A new Flutter project.
-
-## Getting Started
-
-For help getting started with Flutter, view our online
-[documentation](http://flutter.io/).
+Giving a go at Flutter to create a small mobile app made for kids in preschool
