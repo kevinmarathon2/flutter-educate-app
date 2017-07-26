@@ -4,7 +4,7 @@ description: A new Flutter project.
 dependencies:
   flutter:
     sdk: flutter
-
+  http: '>=0.11.3+12'
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -56,3 +56,8 @@ flutter:
   #       - asset: fonts/TrajanPro.ttf
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
+  fonts:
+    - family: Open sans
+      fonts:
+        - asset: fonts/opensans.ttf
+    

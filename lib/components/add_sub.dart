@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
+import 'package:flutter/services.dart';
 
 class AddSubView extends StatefulWidget {
   AddSubView({Key key, this.title, this.operation}) : super(key: key);
@@ -17,10 +18,10 @@ class _AddSubViewState extends State<AddSubView> {
   final String operation;
 
   num numberA, numberB, answer, totalQuestions = 30;
-  String question = "";
+  String question = "", status = "";
   double correctSoFar = 0.00;
   List<num> answers = <num>[1, 2, 3];
-
+  var httpClient = createHttpClient();
   void initState() {
     super.initState();
     setUpQuestion();
@@ -54,13 +55,14 @@ class _AddSubViewState extends State<AddSubView> {
 
   List<RaisedButton> createAnswerButtons() {
     var list = [];
- 
+
     for (final item in answers) {
       list.add(new RaisedButton(
         child: new Text(item.toString()),
-        onPressed: (){checkAnswer(item);},
+        onPressed: () {
+          checkAnswer(item);
+        },
       ));
-      print(list);
     }
     return list;
 
@@ -76,10 +78,13 @@ class _AddSubViewState extends State<AddSubView> {
   }
 
   checkAnswer(givenAnswer) {
-    print( "The answer is ${givenAnswer} and the real answer is ${answer}");
-    if(givenAnswer == answer){
+    print("The answer is ${givenAnswer} and the real answer is ${answer}");
+    if (givenAnswer == answer) {
       print("correct");
       correctSoFar += 0.03;
+      if (correctSoFar >= 1.0) {
+        status = "Yay you have finished";
+      }
       setUpQuestion();
     }
   }
@@ -99,7 +104,10 @@ class _AddSubViewState extends State<AddSubView> {
             new Container(
               child: new Text("progress bar"),
             ),
-            new LinearProgressIndicator(value: correctSoFar,)
+            new LinearProgressIndicator(
+              value: correctSoFar,
+            ),
+            new Text(status)
           ],
         ));
   }
